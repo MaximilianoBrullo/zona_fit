@@ -26,11 +26,17 @@ public class ClienteDAO implements InterfaceClienteDAO {
                 cliente.setIdCliente(rs.getInt("id"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setApellido(rs.getString("apellido"));
-                cliente.setMembresia(rs.getInt("membresia"));
+                cliente.setMembresia(rs.getInt("membresial"));
                 clientes.add(cliente);
             }
         } catch (Exception e) {
             System.out.println("Error al retornar clientes: " + e.getMessage());
+        }finally{
+            try{
+                con.close();
+            } catch (Exception e) {
+                System.out.println("Error al cerrar la conexion: " + e.getMessage());
+            }
         }
         return clientes;
     }
@@ -53,5 +59,14 @@ public class ClienteDAO implements InterfaceClienteDAO {
     @Override
     public boolean eliminarCliente(Cliente cliente) {
         return false;
+    }
+
+    public static void main(String[] args) {
+        //Listar clientes
+        System.out.println("+++LISTAR CLIENTES+++");
+        InterfaceClienteDAO clienteDAO = new ClienteDAO();
+        for(Cliente cliente : clienteDAO.listarClientes()){
+            System.out.println(cliente);
+        }
     }
 }
