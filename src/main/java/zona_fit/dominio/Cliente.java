@@ -1,9 +1,10 @@
 package zona_fit.dominio;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Cliente {
-    private int idCliente;
+    private static int idCliente;
     private String nombre;
     private String apellido;
     private int membresia;

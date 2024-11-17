@@ -49,14 +49,17 @@ public class ZonaFitApp {
                 for(Cliente cliente : clienteDAO.listarClientes()){
                     System.out.println(cliente);
                 }
-                return salir;
 
-                case 2:
-                    System.out.println("--- Agregar Cliente ---");
-                    clienteDAO.agregarCliente(new Cliente(
-
-                    ))
-
+            case 2:
+                System.out.println("--- Agregar Cliente ---");
+                Cliente cliente = new Cliente();
+                System.out.print("Ingrese el nombre del cliente: ");
+                cliente.setNombre(consola.nextLine());
+                System.out.print("Ingrese el apellido del cliente: ");
+                cliente.setApellido(consola.nextLine());
+                System.out.print("Ingrese la membresia del cliente: ");
+                clienteDAO.
         }
+        return salir;
     }
 }

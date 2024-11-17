@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ClienteDAO implements InterfaceClienteDAO {
 
@@ -81,7 +82,7 @@ public class ClienteDAO implements InterfaceClienteDAO {
             ps = con.prepareStatement(sql);
             ps.setString(1, elcliente.getNombre());
             ps.setString(2, elcliente.getApellido());
-            ps.setInt(3, elcliente.getMembresia());
+            ps.setInt(3, getMembresia());
             ps.execute();
             System.out.println("hasta aca todo bien");
             return true;
@@ -106,6 +107,22 @@ public class ClienteDAO implements InterfaceClienteDAO {
     public boolean eliminarCliente(Cliente cliente) {
         return false;
     }
+    private int getMembresia() {
+        int membresia = 0;
+        boolean valido;
+        do {
+            valido = true;
+            Random r = new Random();
+            membresia = r.nextInt(99) + 1;
+            for (Cliente cliente : listarClientes()) {
+                if (membresia == cliente.getMembresia()) {
+                    valido = false;
+                }
+            }
+        } while (!valido);
+        return membresia;
+    }
+
 
     public static void main(String[] args) {
         //Listar clientes
@@ -126,6 +143,5 @@ public class ClienteDAO implements InterfaceClienteDAO {
         }else{
             System.out.print("CLIENTE NO AGREGADO!!!!!!");
         }
-
     }
 }
