@@ -72,16 +72,18 @@ public class ClienteDAO implements InterfaceClienteDAO {
     }
 
     @Override
-    public boolean agregarCliente(Cliente cliente) {
+    public boolean agregarCliente(Cliente elcliente) {
         PreparedStatement ps;
         Connection con = Conexion.getConecion();
-        String sql = "INSERT INTO cliente (nombre, apellido, mebresial) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO cliente (nombre, apellido, mebresial) " +
+                " VALUES (?, ?, ?)";
         try{
             ps = con.prepareStatement(sql);
-            ps.setString(1, cliente.getNombre());
-            ps.setString(2, cliente.getApellido());
-            ps.setInt(3, cliente.getMembresia());
+            ps.setString(1, elcliente.getNombre());
+            ps.setString(2, elcliente.getApellido());
+            ps.setInt(3, elcliente.getMembresia());
             ps.execute();
+            System.out.println("hasta aca todo bien");
             return true;
         } catch (Exception e) {
             System.out.println("Error al agregar cliente: " + e.getMessage());
@@ -116,10 +118,14 @@ public class ClienteDAO implements InterfaceClienteDAO {
         Cliente cliente = new Cliente("Daniel", "Ortiz", 890);
         boolean agregado = clienteDAO.agregarCliente(cliente);
 
-
-        System.out.println("+++buscar CLIENTES 2+++");
-        for(Cliente cliente1 : clienteDAO.listarClientes()){
-            System.out.println(cliente1);
+        if(agregado){
+            System.out.println("+++buscar CLIENTES 2+++");
+            for(Cliente cliente1 : clienteDAO.listarClientes()){
+                System.out.println(cliente1);
+            }
+        }else{
+            System.out.print("CLIENTE NO AGREGADO!!!!!!");
         }
+
     }
 }
