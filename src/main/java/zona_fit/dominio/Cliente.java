@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Cliente {
-    private static int idCliente;
+    private int idCliente;
     private String nombre;
     private String apellido;
     private int membresia;
