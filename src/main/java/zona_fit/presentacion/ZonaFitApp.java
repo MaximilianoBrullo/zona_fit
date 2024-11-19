@@ -36,6 +36,7 @@ public class ZonaFitApp {
                         4. Eliminar Cliente
                         5. Buscar Cliente
                         6. Salir
+                        Elija una opcion:
                         """);
         return Integer.parseInt(consola.nextLine());
     }
@@ -57,8 +58,7 @@ public class ZonaFitApp {
                 cliente.setNombre(consola.nextLine());
                 System.out.print("Ingrese el apellido del cliente: ");
                 cliente.setApellido(consola.nextLine());
-                System.out.print("Ingrese la membresia del cliente: ");
-                clienteDAO.
+                clienteDAO.agregarCliente(cliente);
         }
         return salir;
     }
