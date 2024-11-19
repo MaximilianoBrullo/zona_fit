@@ -76,10 +76,12 @@ public class ClienteDAO implements InterfaceClienteDAO {
     public boolean agregarCliente(Cliente elcliente) {
         PreparedStatement ps;
         Connection con = Conexion.getConecion();
-        String sql = "INSERT INTO cliente (nombre, apellido, mebresial) " +
-                " VALUES (?, ?, ?)";
+        String sql = "INSERT INTO cliente (nombre, apellido, membresial) VALUES (?, ?, ?)";
         try{
+            System.out.println("SQL: " + sql);
             ps = con.prepareStatement(sql);
+            System.out.println("Datos a insertar: " + elcliente.getNombre() + ", " +
+                    elcliente.getApellido() + ", " + getMembresia());
             ps.setString(1, elcliente.getNombre());
             ps.setString(2, elcliente.getApellido());
             ps.setInt(3, getMembresia());
@@ -133,10 +135,11 @@ public class ClienteDAO implements InterfaceClienteDAO {
         }
 
         Cliente cliente = new Cliente("Daniel", "Ortiz", 890);
+        System.out.println("cliente a agregar: " + cliente.toString());
         boolean agregado = clienteDAO.agregarCliente(cliente);
 
         if(agregado){
-            System.out.println("+++buscar CLIENTES 2+++");
+            System.out.println("+++buscar CLIENTES+++");
             for(Cliente cliente1 : clienteDAO.listarClientes()){
                 System.out.println(cliente1);
             }
