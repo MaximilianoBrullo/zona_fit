@@ -15,15 +15,28 @@ public class Cliente {
         this.idCliente = id;
     }
 
+    public Cliente(String nombre, String apellido){
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+
+    public Cliente(int id, String nombre, String apellido, int membresia){
+        this.idCliente = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.membresia = membresia;
+    }
+
     public Cliente(String nombre, String apellido, int membresia){
         this.nombre = nombre;
         this.apellido = apellido;
         this.membresia = membresia;
     }
 
-    public Cliente(int id, String nombre, String apellido, int membresia){
-        this(nombre, apellido, membresia);
-        idCliente = id;
+    public Cliente(int id, String nombre, String apellido){
+        this.idCliente = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
     }
 
     public int getIdCliente() {

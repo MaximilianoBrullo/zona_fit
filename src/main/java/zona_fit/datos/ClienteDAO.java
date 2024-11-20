@@ -102,6 +102,25 @@ public class ClienteDAO implements InterfaceClienteDAO {
 
     @Override
     public boolean modificarCliente(Cliente cliente) {
+        PreparedStatement ps;
+        Connection con = Conexion.getConecion();
+        String sql = "UPDATE cliente SET nombre=?, apellido=?, membresial=? WHERE id=?";
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cliente.getNombre());
+            ps.setString(2, cliente.getApellido());
+            ps.setInt(3, getMembresia());
+            ps.setInt(4, cliente.getIdCliente());
+            ps.execute();
+        } catch (Exception e) {
+            System.out.println("Error al modificar cliente: " + e.getMessage());
+        }finally {
+            try{
+                con.close();
+            }catch (SQLException e) {
+                System.out.println("Error al cerrar la conexion: " + e.getMessage());
+            }
+        }
         return false;
     }
 
@@ -109,6 +128,7 @@ public class ClienteDAO implements InterfaceClienteDAO {
     public boolean eliminarCliente(Cliente cliente) {
         return false;
     }
+
     private int getMembresia() {
         int membresia = 0;
         boolean valido;
@@ -128,13 +148,13 @@ public class ClienteDAO implements InterfaceClienteDAO {
 
     public static void main(String[] args) {
         //Listar clientes
-        System.out.println("+++buscar CLIENTES 2+++");
+        /*System.out.println("+++LISTAR CLIENTES+++");
         InterfaceClienteDAO clienteDAO = new ClienteDAO();
         for(Cliente cliente1 : clienteDAO.listarClientes()){
             System.out.println(cliente1);
         }
-
-        Cliente cliente = new Cliente("Daniel", "Ortiz", 890);
+        System.out.println("+++AGREGAR CLIENTES+++");
+        Cliente cliente = new Cliente("Ruben", "Diaz");
         System.out.println("cliente a agregar: " + cliente.toString());
         boolean agregado = clienteDAO.agregarCliente(cliente);
 
@@ -145,6 +165,16 @@ public class ClienteDAO implements InterfaceClienteDAO {
             }
         }else{
             System.out.print("CLIENTE NO AGREGADO!!!!!!");
+        }*/
+
+        //modificar cliente
+        InterfaceClienteDAO clienteDAO = new ClienteDAO();
+        Cliente cliente = new Cliente(4, "Jose", "Castillo");
+        boolean modificado = clienteDAO.modificarCliente(cliente);
+        if(modificado){
+            System.out.println("El cliente se ha actualizado correctamente");
+        }else{
+            System.out.println("El cliente no se ha actualizado correctamente");
         }
     }
 }
